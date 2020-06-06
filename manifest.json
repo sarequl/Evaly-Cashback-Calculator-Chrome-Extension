@@ -14,5 +14,5 @@
     "default_icon": "icons/icon19.png",
     "default_title": "Evaly Cashback Calcualtor",
     "default_popup": "src/browser_action/browser_action.html"
-  },
+  }
 }
