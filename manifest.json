@@ -15,8 +15,4 @@
     "default_title": "Evaly Cashback Calcualtor",
     "default_popup": "src/browser_action/browser_action.html"
   },
-  "permissions": [
-    "idle",
-    "clipboardRead"
-  ]
 }
