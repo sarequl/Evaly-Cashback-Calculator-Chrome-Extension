@@ -1,4 +1,7 @@
-window.addEventListener('load', preFunc)
+if (window.location.href.includes('/campaign/')) {
+	window.addEventListener('load', preFunc)
+}
+
 function preFunc() {
 	const start = Date.now();
 	const isLoaded = setInterval(() => {
@@ -40,16 +43,18 @@ function insertDiscount(product, index) {
 	const priceString = product.querySelector('.text-lg.font-semibold.px-2').innerText.replace('৳', '');
 	const cashback = parseInt(cashbackString);
 	const price = parseInt(priceString);
-	const cashbackFull = calculateFull(price, cashback).toFixed(2);
-	const toPayPartial = calculatePartial(price, cashback).toFixed(2);
-	const discountedPriceFull = price > cashbackFull ? price - cashbackFull : `+ ${cashbackFull}`;
-	const discountedPricePartial = price - toPayPartial;
+	const cashbackFull = Math.round(calculateFull(price, cashback));
+	const toPayPartial = Math.round(calculatePartial(price, cashback));
+	const discountedPriceFull = price > cashbackFull ? Math.round(price - cashbackFull) : `ফ্রী + ${Math.round(cashbackFull - price)}`;
+	const discountedPricePartial = Math.round(price - toPayPartial);
 	const htmlString = `
 		<p style="${style}" class="eccce">
-		ফুল পেমেন্ট এ ক্যাশব্যাক পাবেন: <span style="${discountStyle}">${cashbackFull}</span><br>
+		ফুল পেমেন্ট এ ক্যাশব্যাক: <span style="${discountStyle}">${cashbackFull}</span><br>
 		পারশিয়াল পেমেন্ট এমাউন্ট: <span style="${discountStyle}">${toPayPartial}</span> <br>
+		<span style="display: block;margin-top: 10px;margin-bottom: 10px;border-bottom: 2px solid #cb2b3d;box-shadow: 1px 0px 3px 0px #00000063;"></span>
 		ফুল পেমেন্ট এ প্রোডাক্ট এর দাম: <span style="${discountStyle}">${discountedPriceFull}</span><br>
-		পারশিয়াল পেমেন্ট এ প্রোডাক্ট ডিসকাউন্ট: <span style="${discountStyle}">${discountedPricePartial}</span><br>
+		পারশিয়াল পেমেন্ট এ ডিসকাউন্ট: <span style="${discountStyle}">${discountedPricePartial}</span><br>
+		<span style="font-size:0.7rem; font-style: italic; color: #cb2b3d;">সব ক্যাম্পেইন এ পারশিয়াল পেমেন্ট করা নাও যেতে পারে, অর্ডার করার আগে ইভালি'র সাথে জেনে নিন।</span>
 		</p>
 	`;
 	insertLocation.insertAdjacentHTML('afterend', htmlString);
