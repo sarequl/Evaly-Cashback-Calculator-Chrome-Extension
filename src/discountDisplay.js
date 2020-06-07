@@ -1,22 +1,4 @@
-
-// if (window.location.href.includes('/products/')) {
-// 	window.addEventListener('load', singlePrefunc)
-// }
-// if (window.location.href.includes('/campaign/')) {
-// 	window.addEventListener('load', preFunc)
-// }
-
-// function singlePrefunc() {
-// 	const start = Date.now();
-// 	const isLoaded = setInterval(() => {
-// 		if (Date.now - start > 10000) clearInterval(isLoaded);
-// 		if (document.querySelector("product-details") !== null) {
-// 			clearInterval(isLoaded);
-// 			mainSingle();
-// 		}
-// 	}, 100);
-// }
-
+window.addEventListener('load', preFunc)
 function preFunc() {
 	const start = Date.now();
 	const isLoaded = setInterval(() => {
@@ -28,10 +10,6 @@ function preFunc() {
 	}, 100);
 }
 
-
-// function mainSingle() {
-// 	const insertLocation =
-// }
 
 function main() {
 	const products = document.querySelector(".product-grid");
