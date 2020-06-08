@@ -1,7 +1,7 @@
 //Check if the url belongs to a campaign
 
 if (window.location.href.includes('/campaign/')) {
-	window.addEventListener('load', preFunc)
+	window.addEventListener('load', preFunc);
 }
 
 //pre main function checks for many things and runs the main function if needed with delays.
@@ -37,10 +37,20 @@ function main(records, observer) {
 		catBlock.querySelectorAll('li').forEach(category => category.addEventListener('click', () => {
 			if (observer !== undefined) {
 				observer.disconnect();
-				setTimeout(preFunc, 2000)
+				setTimeout(preFunc, 2000);
 			}
 		}));
 	}
+	document.querySelectorAll('button').forEach(button => { //i am lazy
+		if (button.innerText === 'All Products') {
+			button.addEventListener('click', () => {
+				if (observer !== undefined) {
+					observer.disconnect();
+					setTimeout(preFunc, 2000);
+				}
+			})
+		}
+	})
 }
 
 
@@ -65,7 +75,7 @@ function insertDiscount(product) {
 	const price = parseInt(priceString);
 	const cashbackFull = Math.round(calculateFull(price, cashback));
 	const toPayPartial = Math.round(calculatePartial(price, cashback));
-	const discountedPriceFull = price > cashbackFull ? Math.round(price - cashbackFull) : `ফ্রী + ${Math.round(cashbackFull - price)}`;
+	const discountedPriceFull = disCountPriceFull(price, cashbackFull);
 	const discountedPricePartial = Math.round(price - toPayPartial);
 	const htmlString = `
 		<p style="${style}" class="eccce">
@@ -78,6 +88,16 @@ function insertDiscount(product) {
 		</p>
 	`;
 	insertLocation.insertAdjacentHTML('afterend', htmlString);
+}
+
+function disCountPriceFull(price, cashback) {
+	if (price > cashback) {
+		return `${Math.round(price - cashback)}`
+	} else if (price = cashback) {
+		return `ফ্রী`
+	} else {
+		return `ফ্রী + ${Math.round(cashback - price)}`
+	}
 }
 
 function calculateFull(price, cashback) {
