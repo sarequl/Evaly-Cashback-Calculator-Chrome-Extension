@@ -1,7 +1,14 @@
+//Check if the url belongs to a campaign
+
 if (window.location.href.includes('/campaign/')) {
 	window.addEventListener('load', preFunc)
 }
 
+//update discount display on user scroll and dom mutation event on products page
+const lazyObserver = new MutationObserver(prefunc);
+lazyObserver.observe(document.querySelector('.product-grid'), { childList: true, subtree: true });
+
+//pre main function checks for many things and runs the main function if needed with delays.
 function preFunc() {
 	const start = Date.now();
 	const isLoaded = setInterval(() => {
@@ -15,7 +22,7 @@ function preFunc() {
 
 
 function main() {
-	const products = document.querySelector(".product-grid");
+	const products = document.querySelector('.product - grid');
 	products.childNodes.forEach(insertDiscount);
 	products.style.gridTemplateColumns = 'repeat(auto-fill,minmax(300px,1fr))';
 	const catBlock = document.querySelector('.md\\:w-4\\/12.lg\\:w-3\\/12');
