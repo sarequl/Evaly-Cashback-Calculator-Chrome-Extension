@@ -4,36 +4,36 @@ if (window.location.href.includes('/campaign/')) {
 	window.addEventListener('load', preFunc)
 }
 
-//update discount display on user scroll and dom mutation event on products page
-const lazyObserver = new MutationObserver(prefunc);
-lazyObserver.observe(document.querySelector('.product-grid'), { childList: true, subtree: true });
-
 //pre main function checks for many things and runs the main function if needed with delays.
 function preFunc() {
 	const start = Date.now();
 	const isLoaded = setInterval(() => {
+		const products = document.querySelector('.product-grid');
 		if (Date.now - start > 10000) clearInterval(isLoaded);
-		if (document.querySelector(".product-grid") !== null) {
+		if (products !== null) {
 			clearInterval(isLoaded);
-			setTimeout(main, 2000);
+			observer(true);
+		} else {
+			return;
 		}
-	}, 100);
+	}, 200);
 }
 
+function observer(ifPre) {
+	if (ifPre) main()
+	const products = document.querySelector('.product-grid');
+	const lazyObserver = new MutationObserver(() => main());
+	lazyObserver.observe(products, { childList: true, attributes: false, subtree: false, charecterData: false });
+}
 
 function main() {
-	const products = document.querySelector('.product - grid');
+	const products = document.querySelector('.product-grid');
 	products.childNodes.forEach(insertDiscount);
 	products.style.gridTemplateColumns = 'repeat(auto-fill,minmax(300px,1fr))';
-	const catBlock = document.querySelector('.md\\:w-4\\/12.lg\\:w-3\\/12');
-	if (catBlock !== null) {
-		catBlock.querySelectorAll('li').forEach(category => category.addEventListener('click', preFunc));
-	}
 }
 
 
-function insertDiscount(product, index) {
-
+function insertDiscount(product) {
 	if (product.querySelector('.eccce') !== null) { //checking if product already has the discount string
 		product.querySelector('.eccce').remove();
 	}
@@ -46,8 +46,7 @@ function insertDiscount(product, index) {
 	border-radius: 5px;
 	padding: 5px;
 	`;
-	const discountStyle = `color: green; font-weight: bold;`;
-
+	const discountStyle = 'color: green; font-weight: bold;';
 	const insertLocation = product.querySelector('.text-lg.font-semibold.px-2');
 	const cashbackString = product.firstElementChild.innerText.replace(/%\scashback/gi, '');
 	const priceString = product.querySelector('.text-lg.font-semibold.px-2').innerText.replace('৳', '');
