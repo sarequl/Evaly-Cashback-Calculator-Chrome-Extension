@@ -22,14 +22,25 @@ function preFunc() {
 function observer(ifPre) {
 	if (ifPre) main()
 	const products = document.querySelector('.product-grid');
-	const lazyObserver = new MutationObserver(() => main());
+	const lazyObserver = new MutationObserver(main);
 	lazyObserver.observe(products, { childList: true, attributes: false, subtree: false, charecterData: false });
 }
 
-function main() {
+function main(records, observer) {
 	const products = document.querySelector('.product-grid');
 	products.childNodes.forEach(insertDiscount);
 	products.style.gridTemplateColumns = 'repeat(auto-fill,minmax(300px,1fr))';
+	const catBlock = document.querySelector('.md\\:w-4\\/12.lg\\:w-3\\/12');
+
+	catBlock.querySelectorAll('li').forEach(category => category.addEventListener('click', preFunc));
+	if (catBlock.querySelectorAll('li') !== null) { //force update discount display on category change
+		catBlock.querySelectorAll('li').forEach(category => category.addEventListener('click', () => {
+			if (observer !== undefined) {
+				observer.disconnect();
+				setTimeout(preFunc, 2000)
+			}
+		}));
+	}
 }
 
 
