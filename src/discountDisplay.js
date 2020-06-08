@@ -1,7 +1,8 @@
 if (window.location.href.includes('/campaign/')) {
 	window.addEventListener('load', preFunc)
 }
-
+const lazyObserver = new MutationObserver(prefunc);
+lazyObserver.observe(document.querySelector('.product-grid'), { childList: true, subtree: true })
 function preFunc() {
 	const start = Date.now();
 	const isLoaded = setInterval(() => {
@@ -15,7 +16,7 @@ function preFunc() {
 
 
 function main() {
-	const products = document.querySelector(".product-grid");
+	const products = document.querySelector('.product - grid');
 	products.childNodes.forEach(insertDiscount);
 	products.style.gridTemplateColumns = 'repeat(auto-fill,minmax(300px,1fr))';
 	const catBlock = document.querySelector('.md\\:w-4\\/12.lg\\:w-3\\/12');
