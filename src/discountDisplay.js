@@ -4,22 +4,22 @@ if (window.location.href.includes('/campaign/')) {
 	window.addEventListener('load', preFunc)
 }
 
-//update discount display on user scroll and dom mutation event on products page
-const lazyObserver = new MutationObserver(prefunc);
-lazyObserver.observe(document.querySelector('.product-grid'), { childList: true, subtree: true });
-
 //pre main function checks for many things and runs the main function if needed with delays.
 function preFunc() {
 	const start = Date.now();
-	const isLoaded = setInterval(() => {
+	const isLoaded = setInterval(checker, 100);
+	function checker() {
+		const products = document.querySelector('.product-grid')
 		if (Date.now - start > 10000) clearInterval(isLoaded);
-		if (document.querySelector(".product-grid") !== null) {
+		if (products !== null) {
 			clearInterval(isLoaded);
 			setTimeout(main, 2000);
+			//update discount display on user scroll and dom mutation event on products page
+			const lazyObserver = new MutationObserver(prefunc);
+			lazyObserver.observe(products, { childList: true, subtree: true });
 		}
-	}, 100);
+	}
 }
-
 
 function main() {
 	const products = document.querySelector('.product - grid');
@@ -33,7 +33,6 @@ function main() {
 
 
 function insertDiscount(product, index) {
-
 	if (product.querySelector('.eccce') !== null) { //checking if product already has the discount string
 		product.querySelector('.eccce').remove();
 	}
