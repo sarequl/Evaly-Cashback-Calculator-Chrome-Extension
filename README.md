@@ -34,9 +34,9 @@
 
 ## FAQ
 
-- **The Extension is not displaying discount**
+- **The Extension is not displaying discount.**
     - Please open an issue with the current url and we will try to fix it.
-- **The Extension is not working on single product page**
+- **The Extension is not working on single product page.**
     - It is not Implemented yet, But if you want this please open an issue.
 ---
 
