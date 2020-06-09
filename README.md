@@ -1,4 +1,4 @@
-# Evaly Cashback Calculator Chrome Extension v1.0.0
+# Evaly Cashback Calculator Chrome Extension v1.1.0
 
 > An Extension to display comprehensive cashback information on evaly website.
 
